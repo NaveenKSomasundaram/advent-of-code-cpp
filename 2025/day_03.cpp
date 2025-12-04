@@ -11,13 +11,13 @@ vector<string> parse_input(){
     return input;
 }
 
-long long get_joltage(string bank, int selection_size){
-    string joltage = string(selection_size, '0');
-
-    for(int i = 0; i < bank.length(); i++){
-        int digit_pos = min(selection_size, (int)bank.length() - i) - 1;
+long long get_joltage(string bank, int joltage_length){
+    string joltage = string(joltage_length, '0');
+    int bank_length = bank.length();
+    for(int i = 0; i < bank_length; i++){
+        int digit_pos = min(joltage_length, bank_length - i) - 1;
         while(digit_pos >= 0){
-            int idx = joltage.length() - digit_pos - 1;
+            int idx = joltage_length - digit_pos - 1;
             if (bank[i] > joltage[idx]){
                 joltage[idx] = bank[i];
                 fill(joltage.begin()+idx + 1, joltage.end(), '0');
