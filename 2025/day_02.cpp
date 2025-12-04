@@ -35,28 +35,27 @@ bool is_invalid_id(string id){
 }
 
 bool is_invalid_id_silly(string id){
-    if(id.length() < 2) return false;
 
-    int num_repeats = 2;
+    int id_len = id.length();
 
-    for(int num_repeats=2; num_repeats < id.length() + 1; num_repeats++){
+    if(id_len < 2) return false;
 
-       if(id.length() % num_repeats != 0) continue;
+    for(int num_repeats=2; num_repeats <= id_len; num_repeats++){
 
-       string pattern = id.substr(0, id.length() / num_repeats);
+       if(id_len % num_repeats != 0) continue;
+
+       int pattern_len = id_len / num_repeats;
 
        bool pattern_matched = true;
-       for(int i = 0; i + pattern.length() <= id.length(); i += pattern.length()){
-        if(id.substr(i, pattern.length()) != pattern){
-            pattern_matched = false;
-            break;
-        }
+       for(int i = 0; i < id_len; i ++){
+            if(id[i] != id[i % pattern_len]){
+                pattern_matched = false;
+                break;
+            }
        }
-
-       // Return if id matches pattern x num_repeats
-       if (pattern_matched)
-            return true;
+       if (pattern_matched) return true;
     }
+
     return false;
 
 }
