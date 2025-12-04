@@ -69,11 +69,8 @@ int solve_2(vector<string> operations){
 int main(){
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
 
-    int ans = 0;
     vector<string> input = parse_input();
-    string line;
-
-    cout << "Part 1: " << solve_1(input) << endl;
-    cout << "Part 2: " << solve_2(input) << endl;
+    cout << "Part 1 answer: " << solve_1(input) << endl;
+    cout << "Part 2 answer: " << solve_2(input) << endl;
     return 0;
 }
