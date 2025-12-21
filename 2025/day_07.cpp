@@ -12,6 +12,27 @@ vector<string> parse_input(){
     return input;
 }
 
+void save_matrix_as_pgm(const std::vector<std::vector<long long>>& matrix, const std::string& filename) {
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+
+    ofstream out(filename);
+    out << "P2\n" << cols << " " << rows << "\n255\n"; // Header
+
+    for (int r = 0; r < rows; ++r) {
+        for (int c = 0; c < cols; ++c) {
+            // Ensure value is between 0-255
+            int val = 0;
+            if (matrix[r][c] > 0){
+                val = 200;
+            }
+
+            out << val << " ";
+        }
+        out << "\n";
+    }
+}
+
 vector<long long> solve_1(vector<string> &grid){
     size_t n_rows = grid.size();
     size_t n_cols = grid[0].length();
@@ -28,8 +49,6 @@ vector<long long> solve_1(vector<string> &grid){
         for(size_t col = 0; col < n_cols; col++){
             if (beam_counts[row][col] == 0)
                 continue;
-
-
             if(grid[row][col] == '^'){
                 beam_counts[row + 1][col + 1] += beam_counts[row][col];
                 beam_counts[row + 1][col - 1] += beam_counts[row][col];
@@ -43,6 +62,8 @@ vector<long long> solve_1(vector<string> &grid){
     for(auto &nb: beam_counts[n_rows]){
         num_beams += nb;
     }
+
+    //save_matrix_as_pgm(beam_counts, "output_07.pgm");
 
     return {num_active_splitters, num_beams};
 }
